@@ -103,6 +103,7 @@ void EagerSearch::initialize() {
     }
 
     print_initial_evaluator_values(eval_context);
+    exit(0);
 
     pruning_method->initialize(task);
 }

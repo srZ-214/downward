@@ -14,7 +14,7 @@ class PrologProgram:
         self.objects = set()
         def predicate_name_generator():
             for count in itertools.count():
-                yield "p$%d" % count
+                yield "pre$%d" % count
         self.new_name = predicate_name_generator()
     def add_fact(self, atom):
         self.facts.append(Fact(atom))

@@ -394,8 +394,15 @@ def condition_to_rule_body(parameters: Sequence[pddl.TypedObject],
          value (in the initial state)."""
     result = []
     # Require parameters to be instantiated with objects of the right type.
+    existing_type_cosntraint = set()
+    if condition and hasattr(condition, 'parts'):
+        for pt in condition.parts:
+            if isinstance(pt, pddl.Atom) and pt.predicate.startswith("type@"):
+                existing_type_cosntraint.add((pt.predicate,tuple(pt.args)))
     for par in parameters:
-        result.append(par.get_atom())
+        key = (par.get_atom().predicate,tuple(par.get_atom().args))
+        if key not in existing_type_cosntraint:
+            result.append(par.get_atom())
 
     # Require each positive literal in the condition to be reached and
     # existentially quantified variables of the condition to be instantiated
